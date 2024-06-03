@@ -1,0 +1,25 @@
+import dotenv from "dotenv";
+// import cors from "cors";
+import connectDB from "./src/db/index.js";
+import { app } from "./app.js";
+
+// app.use(cors());
+
+dotenv.config({
+  path: "./.env",
+});
+
+connectDB()
+  .then(() => {
+    app.on("error", (error) => {
+      // console.log("ERROR: ", error )
+      throw error;
+    });
+
+    app.listen(process.env.PORT | 8000, () => {
+      console.log(`⚙️  Server is running on port : ${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("Mongo Db conntection failed !!! ", error);
+  });
