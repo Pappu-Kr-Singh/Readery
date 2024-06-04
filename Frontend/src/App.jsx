@@ -9,7 +9,7 @@ import { useAuth } from "./context/AuthProvider";
 
 const App = () => {
   const [authUser, setAuthUser] = useAuth();
-  // console.log(authUser);
+  console.log(authUser);
 
   return (
     <>
@@ -18,7 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/course"
-            element={authUser ? <Courses /> : <Navigate to="/register" />}
+            element={authUser ? <Courses /> : <Navigate to="/signup" />}
           />
           <Route path="/signup" element={<SignUp />} />
           {/* <Route path="/contact-us" element={<ContactUs />} /> */}
