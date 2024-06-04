@@ -1,9 +1,6 @@
 import dotenv from "dotenv";
-// import cors from "cors";
 import connectDB from "./src/db/index.js";
 import { app } from "./app.js";
-
-// app.use(cors());
 
 dotenv.config({
   path: "./.env",
@@ -12,7 +9,6 @@ dotenv.config({
 connectDB()
   .then(() => {
     app.on("error", (error) => {
-      // console.log("ERROR: ", error )
       throw error;
     });
 
