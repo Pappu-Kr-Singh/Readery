@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
 const Login = () => {
   const {
     register,
@@ -8,7 +10,32 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const userInfo = {
+      email: data.email,
+      userName: data.userName,
+      password: data.password,
+    };
+
+    // console.log(data);
+
+    await axios
+      .post("http://localhost:8000/user/login", userInfo)
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data) {
+          alert("User Registered Successfully");
+        }
+        localStorage.setItem("Users", JSON.stringify(res.data.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          // console.log(err.response);
+
+          alert("Error" + err.response.data.message);
+        }
+      });
+  };
 
   return (
     <>

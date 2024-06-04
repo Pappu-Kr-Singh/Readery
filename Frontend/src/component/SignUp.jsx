@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const SignUp = () => {
   const {
@@ -10,7 +11,33 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const userInfo = {
+      fullName: data.fullName,
+      email: data.email,
+      userName: data.userName,
+      password: data.password,
+    };
+
+    // console.log(data);
+
+    await axios
+      .post("http://localhost:8000/user/register", userInfo)
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data) {
+          alert("User Registered Successfully");
+        }
+        localStorage.setItem("Users", JSON.stringify(res.data.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          // console.log(err.response);
+
+          alert("Error" + err.response.data.message);
+        }
+      });
+  };
   return (
     <>
       <div id="" className="flex h-screen items-center justify-center">
@@ -27,15 +54,31 @@ const SignUp = () => {
 
               <h3 className="font-bold text-xl text-center ">Sign Up</h3>
               <div className="mt-4 mx-4 space-y-2">
-                <span>Name</span>
+                <span>Full Name</span>
                 <br />
                 <input
                   type="text"
                   placeholder="Enter Your Full Name"
                   className="outline-none border p-1 rounded-md w-full"
-                  {...register("name", { required: true })}
+                  {...register("fullName", { required: true })}
                 />
-                {errors.name && (
+                {errors.fullName && (
+                  <span className="text-red-600 text-sm">
+                    This field is required
+                  </span>
+                )}
+              </div>
+
+              <div className="mt-4 mx-4 space-y-2">
+                <span>Username</span>
+                <br />
+                <input
+                  type="text"
+                  placeholder="Enter Your Full Name"
+                  className="outline-none border p-1 rounded-md w-full"
+                  {...register("userName", { required: true })}
+                />
+                {errors.userName && (
                   <span className="text-red-600 text-sm">
                     This field is required
                   </span>

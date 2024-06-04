@@ -7,7 +7,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const { userName, email, password } = req.body;
 
   //checking @ in email
-
   const emailValidate = email.includes("@");
 
   if (!emailValidate) {
@@ -19,11 +18,13 @@ const registerUser = asyncHandler(async (req, res) => {
   const userEmailExit = await User.findOne({ email });
 
   if (userNameExist) {
-    throw new ApiError(408, "userName Already Exit");
+    // throw new ApiError(408, "userName Already Exist");
+    return res.status(408).json({ message: " userName already exists" });
   }
 
   if (userEmailExit) {
-    throw new ApiError(408, "Email Already Exit");
+    // throw new ApiError(408, "Email Already Exit");
+    return res.status(408).json({ message: " Email Already Exists" });
   }
 
   const user = await User.create({
