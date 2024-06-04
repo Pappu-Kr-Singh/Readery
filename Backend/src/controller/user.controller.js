@@ -65,7 +65,8 @@ const loginUser = asyncHandler(async (req, res) => {
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
-    throw new ApiError(401, "Invalid User Credientials");
+    // throw new ApiError(401, "Invalid User Credientials");
+    return res.status(401).json({ message: " Invalid User Credientials" });
   }
 
   const logedInUser = await User.findById(user._id).select("-password");

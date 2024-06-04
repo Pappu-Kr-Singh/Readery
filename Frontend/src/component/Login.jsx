@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -24,15 +25,14 @@ const Login = () => {
       .then((res) => {
         // console.log(res.data);
         if (res.data) {
-          alert("User Registered Successfully");
+          toast.success("User LoggedIn Successfully!");
         }
         localStorage.setItem("Users", JSON.stringify(res.data.data));
       })
       .catch((err) => {
         if (err.response) {
           // console.log(err.response);
-
-          alert("Error" + err.response.data.message);
+          toast.error("Error" + err.response.data.message);
         }
       });
   };
@@ -46,6 +46,7 @@ const Login = () => {
             <Link
               to="/"
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => document.getElementById("my_modal_3").close()}
             >
               ✕
             </Link>
