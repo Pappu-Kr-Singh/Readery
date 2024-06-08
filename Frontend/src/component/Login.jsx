@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -10,6 +10,8 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const userInfo = {
@@ -30,6 +32,7 @@ const Login = () => {
           setTimeout(() => {
             window.location.reload();
             localStorage.setItem("Users", JSON.stringify(res.data.data));
+            window.location.href = "http://localhost:5173/user/profile";
           }, 1000);
         }
       })
