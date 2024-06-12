@@ -76,4 +76,39 @@ const loginUser = asyncHandler(async (req, res) => {
     .json(new apiResponce(200, logedInUser, "User Logged in Successfully"));
 });
 
-export { registerUser, loginUser };
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (!oldPassword) {
+    throw new ApiError(401, "Old password is required");
+  }
+
+  if (!newPassword) {
+    throw new ApiError(401, "New password is required");
+  }
+
+  if (!confirmPassword) {
+    throw new ApiError(401, "Confirm Password is required");
+  }
+
+  if (!(newPassword === confirmPassword)) {
+    throw new ApiError(401, "Confirm password doesn't match");
+  }
+
+  const user = await User.findById(req.user?._id);
+
+  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordCorrect) {
+    throw new ApiError(401, "Invalid old password");
+  }
+
+  user.password = newPassword;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new apiResponce(200, "Password is updated successfully"));
+});
+
+export { registerUser, loginUser, changeCurrentPassword };
