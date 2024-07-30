@@ -4,6 +4,7 @@ import {
   loginUser,
   changeCurrentPassword,
   refreshAccessToken,
+  getCurrentUser,
 } from "../controller/user.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -30,6 +31,7 @@ router.post("/login", loginUser);
 
 // Secured Routes
 // router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/current-user").get(verifyJWT, getCurrentUser);
 router.route("/refresh-token").post(refreshAccessToken);
 router.post("/change-password", changeCurrentPassword);
 

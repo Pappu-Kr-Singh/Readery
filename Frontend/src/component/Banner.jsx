@@ -1,5 +1,5 @@
 import React from "react";
-import BannerImg from "../../public/Banner.png";
+import BannerImg from "../../public/banner_img.png";
 
 const Banner = () => {
   return (
@@ -8,7 +8,7 @@ const Banner = () => {
         <div className="w-full order-2 md:order-1 md:w-1/2 mt-8  md:mt-32">
           <div className="space-y-12">
             <h1 className="text-4xl font-bold">
-              Welcome To our Welbsite to learn something new on the
+              Welcome To our Website to learn something new on the
               <span className="text-pink-500"> daily basis</span>
             </h1>
             <p>
@@ -32,7 +32,7 @@ const Banner = () => {
           </div>
           <button className="btn mt-6 btn-secondary">Get Started</button>
         </div>
-        <div className="w-full order-1 md:w-1/2  ">
+        <div className="w-full order-1  md:w-1/2  ">
           <img src={BannerImg} alt="" className="" />
         </div>
       </div>

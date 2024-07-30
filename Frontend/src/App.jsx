@@ -6,11 +6,10 @@ import SignUp from "./component/SignUp";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthProvider";
 import Profile from "./component/Profile";
-// import ContactUs from "./component/ContactUs";
 
 const App = () => {
   const [authUser, setAuthUser] = useAuth();
-  console.log(authUser);
+  // console.log(authUser);
 
   return (
     <>

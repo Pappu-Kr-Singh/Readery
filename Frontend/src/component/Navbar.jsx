@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthProvider";
 
 const Navbar = () => {
   const [authUser, setAuthUser] = useAuth();
-  console.log(authUser);
+  // console.log(authUser);
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -92,7 +92,9 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <a className="text-2xl font-bold cursor-pointer">BookStore</a>
+          <a className="text-2xl font-bold text-red-400 cursor-pointer">
+            🕮 Readery
+          </a>
         </div>
         <div className="navbar-end space-x-3">
           <div className="navbar-center hidden lg:flex">

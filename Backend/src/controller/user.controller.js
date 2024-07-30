@@ -198,22 +198,18 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
+const getCurrentUser = asyncHandler(async (req, res) => {
+  console.log("Current User Avatar ", req.user.avatar);
+  return res
+    .status(200)
+    .json(new apiResponce(200, req.user, "Current user Fetched Seccessfullly"));
+});
+
 const changeCurrentPassword = asyncHandler(async (req, res) => {
-  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+  console.log(oldPassword, newPassword, confirmNewPassword);
 
-  if (!oldPassword) {
-    throw new ApiError(401, "Old password is required");
-  }
-
-  if (!newPassword) {
-    throw new ApiError(401, "New password is required");
-  }
-
-  if (!confirmPassword) {
-    throw new ApiError(401, "Confirm Password is required");
-  }
-
-  if (!(newPassword === confirmPassword)) {
+  if (!(newPassword === confirmNewPassword)) {
     throw new ApiError(401, "Confirm password doesn't match");
   }
 
@@ -222,15 +218,21 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
   const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
 
   if (!isPasswordCorrect) {
-    throw new ApiError(401, "Invalid old password");
+    throw new ApiError(400, "Invalid old password");
   }
 
   user.password = newPassword;
   await user.save({ validateBeforeSave: false });
 
-  return res
+  res
     .status(200)
-    .json(new apiResponce(200, "Password is updated successfully"));
+    .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
-export { registerUser, loginUser, changeCurrentPassword, refreshAccessToken };
+export {
+  registerUser,
+  loginUser,
+  changeCurrentPassword,
+  getCurrentUser,
+  refreshAccessToken,
+};

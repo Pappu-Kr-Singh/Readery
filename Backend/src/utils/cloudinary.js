@@ -10,12 +10,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Debug: Log loaded environment variables
-// console.log("Loaded Environment Variables:");
-// console.log("CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME);
-// console.log("CLOUDINARY_API_KEY:", process.env.CLOUDINARY_API_KEY);
-// console.log("CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET);
-
 const uploadOnCloudinary = async (LocalFilePath) => {
   try {
     if (!LocalFilePath) return null;
